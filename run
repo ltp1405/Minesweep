@@ -1,0 +1,6 @@
+#!/bin/bash
+
+g++ -c Board.cpp
+g++ -c Menu.cpp
+g++ -c main.cpp
+g++ main.o Board.o Menu.o -o app -lsfml-graphics -lsfml-window -lsfml-system 
