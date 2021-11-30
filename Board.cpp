@@ -21,17 +21,9 @@ BoardCell::BoardCell(CellType t=NORMAL) {
     }
 }
 
-Board::Board(int width, int height, int bombCount) {
-    this->width = width;
-    this->height = height;
-    this->bombCount = bombCount;
-
+Board::Board() {
     texture.loadFromFile("tiles.jpg");
     sprite.setTexture(texture);
-
-    this->grid = new BoardCell*[this->width];
-    for (int i = 0; i < this->width; i++)
-        this->grid[i] = new BoardCell[this->height];
 }
 
 Board::~Board() {
@@ -104,9 +96,18 @@ void Board::Draw(sf::RenderWindow& window) {
         }
 }
 
-void Board::Initialize() {
+void Board::Initialize(int width, int height, int bombCount) {
+    this->width = width;
+    this->height = height;
+    this->bombCount = bombCount;
+
+    this->grid = new BoardCell*[this->width];
+    for (int i = 0; i < this->width; i++)
+        this->grid[i] = new BoardCell[this->height];
+
     this->revealedCount = 0;
     this->state = PLAYING;
+
     GenerateGrid();
     PlaceBomb();
 
@@ -184,6 +185,7 @@ void Board::Choose(int x, int y) {
     if (cell->type == BOMB) {
         cell->state = REVEALED;
         this->state = LOSE;
+        OpenAll();
         return;
     }
 
@@ -209,4 +211,29 @@ bool Board::CheckForWin() {
 void Board::RealCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
     cX = (rX - this->x) / cellWidth;
     cY = (rY - this->y) / cellWidth;
+}
+
+void Board::OpenAll() {
+    for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++) {
+            grid[i][j].state = REVEALED;
+        }
+}
+
+void Board::HandleEvent(sf::Event event) {
+    switch (event.type) {
+        case sf::Event::MouseButtonPressed:
+        {
+            int rX = event.mouseButton.x;
+            int rY = event.mouseButton.y;
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                Choose(rX, rY);
+            } else if (event.mouseButton.button == sf::Mouse::Right)
+                ToggleFlag(rX, rY);
+            break;
+        }
+
+        default:
+            break;
+    }
 }

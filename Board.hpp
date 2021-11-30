@@ -7,20 +7,17 @@ enum CellState { FLAGGED, HIDDEN, REVEALED };
 enum GameState { LOSE, WIN, PAUSED, PLAYING };
 
 
-struct BombCell
-{
+struct BombCell {
     bool triggered = false;
 };
 
 
-struct NormalCell
-{
+struct NormalCell {
     int nearbyBombs;
 };
 
 
-struct BoardCell
-{
+struct BoardCell {
     CellState state = HIDDEN;
     CellType type;
     union {
@@ -44,9 +41,9 @@ public:
     GameState state = PLAYING;
     BoardCell **grid;
 
-    Board(int width, int height, int bombCount);
+    Board();
     ~Board();
-    void Initialize();
+    void Initialize(int width, int height, int bombCount);
     void DFS(int x, int y);
     void ToggleFlag(int x, int y);
     void Choose(int x, int y);
@@ -54,6 +51,7 @@ public:
     // bool LoadSavedData();
 
 	void Draw(sf::RenderWindow& window);
+    void HandleEvent(sf::Event event);
 
 private:
     int cellWidth = 32;
@@ -69,4 +67,5 @@ private:
     void SetHiddenTexture();
     bool CheckForWin();
     void RealCoordToCellCoord(int rX, int rY, int &cX, int &cY);
+    void OpenAll();
 };
