@@ -4,16 +4,16 @@
 
 class PushButton {
 public:
-    PushButton(sf::RenderWindow &window);
+    PushButton();
+    PushButton(sf::Vector2f size, sf::Vector2f position);
 
-    void draw();
+    void draw(sf::RenderWindow &window);
     void move(sf::Vector2f pos);
     void move(float x, float y);
-    bool clicked();
-    bool hovered();
+    void HandleEvent(sf::Event event);
+    bool clicked = false;
+    bool hovered = false;
 private:
-    sf::Vector2f mPosition;
     sf::RectangleShape mShape;
     sf::Texture mTexture;
-    sf::RenderWindow *mWindow;
 };

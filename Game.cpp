@@ -6,13 +6,10 @@ int main() {
 }
 
 Game::Game()
-: mWindow(sf::RenderWindow(sf::VideoMode(600, 400), "Minesweeper"))
-, easyStartBtn(mWindow)
-, mediumStartBtn(mWindow)
-, hardStartBtn(mWindow) {
+: mWindow(sf::RenderWindow(sf::VideoMode(600, 400), "Minesweeper")) {
     font.loadFromFile("./DejaVuSansMono.ttf");
     srand(time(0));
-    board.Initialize(10, 10 , 30);
+    board.Initialize(8, 8 , 10);
     board.x = 300;
     board.y = 100;
     easyStartBtn.move(100.f, 100.f);
@@ -38,6 +35,9 @@ void Game::handleEvent() {
             if (e.type == sf::Event::Closed)
                 mWindow.close();
             board.HandleEvent(e);
+            easyStartBtn.HandleEvent(e);
+            mediumStartBtn.HandleEvent(e);
+            hardStartBtn.HandleEvent(e);
         }
         break;
     case GAMEOVER:
@@ -45,7 +45,7 @@ void Game::handleEvent() {
             if (e.type == sf::Event::KeyPressed ||
                 e.type == sf::Event::MouseButtonPressed) {
                 currentScene = GAME;
-                board.Initialize(10, 10, 30);
+                board.Initialize(8, 8, 10);
             }
         }
         break;
@@ -53,12 +53,16 @@ void Game::handleEvent() {
 }
 
 void Game::update() {
-    if (easyStartBtn.clicked())
-        board.Initialize(10, 10, 30);
-    else if (mediumStartBtn.clicked())
-        board.Initialize(15, 15, 50);
-    else if (hardStartBtn.clicked())
-        board.Initialize(20, 20, 100);
+    if (easyStartBtn.clicked) {
+        board.Initialize(8, 8, 10);
+        currentDifficulty = EASY;
+    } else if (mediumStartBtn.clicked) {
+        board.Initialize(16, 16, 40);
+        currentDifficulty = MEDIUM;
+    } else if (hardStartBtn.clicked) {
+        board.Initialize(24, 24, 100);
+        currentDifficulty = HARD;
+    }
 
     if (board.state == LOSE)
         currentScene = GAMEOVER;
@@ -71,9 +75,9 @@ void Game::render() {
     mWindow.clear(sf::Color::White);
 
     board.Draw(mWindow);
-    easyStartBtn.draw();
-    mediumStartBtn.draw();
-    hardStartBtn.draw();
+    easyStartBtn.draw(mWindow);
+    mediumStartBtn.draw(mWindow);
+    hardStartBtn.draw(mWindow);
 
     mWindow.display();
 }
