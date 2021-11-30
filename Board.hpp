@@ -29,13 +29,13 @@ struct BoardCell {
 };
 
 
-class Board
-{
+class Board {
 public:
     int x = 0;
     int y = 0;
     int width;
     int height;
+    float scale = 1.f;
     int bombCount;
     int revealedCount = 0;
     GameState state = PLAYING;

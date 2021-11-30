@@ -89,8 +89,10 @@ void Board::Draw(sf::RenderWindow& window) {
                     break;
             }
 
-            posX = x + i*cellWidth;
-            posY = y + j*cellWidth;
+            scale = 480 / float((cellWidth*width));
+            sprite.setScale(sf::Vector2f(scale, scale));
+            posX = x + i*cellWidth*scale;
+            posY = y + j*cellWidth*scale;
             sprite.setPosition(posX, posY);
             window.draw(sprite);
         }
@@ -209,14 +211,15 @@ bool Board::CheckForWin() {
 }
 
 void Board::RealCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
-    cX = (rX - this->x) / cellWidth;
-    cY = (rY - this->y) / cellWidth;
+    cX = (rX - this->x) / (cellWidth*scale);
+    cY = (rY - this->y) / (cellWidth*scale);
 }
 
 void Board::OpenAll() {
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++) {
-            grid[i][j].state = REVEALED;
+            if (grid[i][j].type == BOMB)
+                grid[i][j].state = REVEALED;
         }
 }
 
