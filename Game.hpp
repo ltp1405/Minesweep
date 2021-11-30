@@ -8,13 +8,15 @@
 
 class Game {
 public:
-    enum Scene { MENU, GAME, GAMEOVER };
+    enum Scene { MENU, GAME, GAMEOVER, GAMEWIN };
     enum Difficulty { EASY, MEDIUM, HARD };
 public:
     Game();
     void run();
 
 private:
+    sf::Clock timer;
+    sf::Time currentTime;
     Board board;
     Scene currentScene;
     Difficulty currentDifficulty;
@@ -27,4 +29,5 @@ private:
     void handleEvent();
     void update();
     void render();
+    void Reset();
 };

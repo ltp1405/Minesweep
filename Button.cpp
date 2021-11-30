@@ -37,7 +37,8 @@ void PushButton::HandleEvent(sf::Event e) {
     sf::Vector2f from = mShape.getPosition();
 
     switch (e.type) {
-        case sf::Event::MouseMoved: {
+        case sf::Event::MouseMoved:
+        {
             sf::Vector2f mousePos = sf::Vector2f(e.mouseMove.x, e.mouseMove.y);
             if (InBound(mousePos, from, to))
                 hovered = true;
@@ -45,12 +46,18 @@ void PushButton::HandleEvent(sf::Event e) {
             break;
         }
 
-        case sf::Event::MouseButtonPressed: {
+        case sf::Event::MouseButtonPressed:
+        {
             sf::Vector2f mousePos = sf::Vector2f(e.mouseButton.x, e.mouseButton.y);
             if (InBound(mousePos, from, to))
                 clicked = true;
             else clicked = false;
             break;
+        }
+
+        case sf::Event::MouseButtonReleased:
+        {
+            clicked = false;
         }
     }
 }

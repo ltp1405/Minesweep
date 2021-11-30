@@ -2,14 +2,13 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Board.hpp"
 
-struct Button
-{
-    int x, y, width, height;
-    bool hovered;
-
-    void Draw();
-};
+void DrawGameoverMenu(sf::RenderWindow &window);
+void DrawGameTitle(sf::RenderWindow &window);
+void DrawGameStatus(sf::RenderWindow &window, int bomb, int flag, float timer);
+void DrawStartMenu(sf::RenderWindow &window);
+void DrawWin(sf::RenderWindow &window);
 
 class Menu {
 public:
@@ -18,5 +17,7 @@ public:
 
     Menu();
     ~Menu();
-    void Draw(sf::RenderWindow &window);
+    void start(Board);
+    void draw(sf::RenderWindow &window);
+    void handleEvent(sf::Event);
 };

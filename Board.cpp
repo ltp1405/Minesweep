@@ -35,7 +35,7 @@ Board::~Board() {
 
 void Board::PlaceBomb() {
     int count = bombCount;
-    while (count >= 0) {
+    while (count > 0) {
         int x = Rand(0, width - 1);
         int y = Rand(0, height - 1);
         if (this->grid[x][y].type != BOMB) {
