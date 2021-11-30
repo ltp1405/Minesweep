@@ -22,7 +22,7 @@ BoardCell::BoardCell(CellType t=NORMAL) {
 }
 
 Board::Board() {
-    texture.loadFromFile("tiles.jpg");
+    texture.loadFromFile("./resource/tiles.jpg");
     sprite.setTexture(texture);
 }
 

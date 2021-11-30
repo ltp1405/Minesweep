@@ -9,7 +9,7 @@ int main() {
 
 Game::Game()
 : mWindow(sf::RenderWindow(sf::VideoMode(900, 900), "Minesweeper", sf::Style::Close)) {
-    font.loadFromFile("./DejaVuSansMono.ttf");
+    font.loadFromFile("./resource/DejaVuSansMono.ttf");
     srand(time(0));
     board.Initialize(8, 8 , 10);
     board.x = 300;

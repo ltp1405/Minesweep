@@ -12,7 +12,7 @@ Menu::~Menu() {
 void Menu::draw(sf::RenderWindow &window) {
     sf::Vector2u winSize = window.getSize();
     sf::Font font;
-    font.loadFromFile("./DejaVuSansMono.ttf");
+    font.loadFromFile("./resource/DejaVuSansMono.ttf");
     sf::Text text;
     text.setFont(font);
     text.setString("Welcome to the Minesweeper");
@@ -33,7 +33,7 @@ void Menu::draw(sf::RenderWindow &window) {
 
 void DrawGameoverMenu(sf::RenderWindow &window) {
     sf::Font font;
-    font.loadFromFile("./FFFFORWA.TTF");
+    font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
     sf::Color bgColor(66, 99, 245, 220);
@@ -57,7 +57,7 @@ void DrawGameoverMenu(sf::RenderWindow &window) {
 
 void DrawGameTitle(sf::RenderWindow &window) {
     sf::Font font;
-    font.loadFromFile("./FFFFORWA.TTF");
+    font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
     sf::Color bgColor(66, 99, 245, 220);
@@ -73,7 +73,7 @@ void DrawGameTitle(sf::RenderWindow &window) {
 
 void DrawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, float timer) {
     sf::Font font;
-    font.loadFromFile("./FFFFORWA.TTF");
+    font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
 
@@ -97,7 +97,7 @@ void DrawStartMenu(sf::RenderWindow &window) {
     int h = 420;
     sf::Vector2u winSize = window.getSize();
     sf::Font font;
-    font.loadFromFile("./FFFFORWA.TTF");
+    font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Text text;
     text.setFont(font);
     text.setString("WELCOME");
@@ -119,7 +119,7 @@ void DrawStartMenu(sf::RenderWindow &window) {
 
 void DrawWin(sf::RenderWindow &window) {
     sf::Font font;
-    font.loadFromFile("./FFFFORWA.TTF");
+    font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
     sf::Color bgColor(66, 99, 245, 220);
