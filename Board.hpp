@@ -51,8 +51,8 @@ public:
     void DFS(int x, int y);
     void ToggleFlag(int x, int y);
     void Choose(int x, int y);
-    void Save();
-    void Load();
+    void Save(ofstream&);
+    void Load(ifstream&);
 
 	void Draw(sf::RenderWindow& window);
     void HandleEvent(sf::Event event);

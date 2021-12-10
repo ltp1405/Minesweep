@@ -186,6 +186,16 @@ void Board::Choose(int x, int y) {
         return;
 
     BoardCell *cell = &grid[coordX][coordY];
+    switch (cell->state) {
+        case FLAGGED:
+            return;
+            break;
+
+        case HIDDEN:
+            DFS(coordX, coordY);
+            break;
+    }
+
     if (cell->type == BOMB) {
         cell->state = REVEALED;
         this->state = LOSE;
@@ -193,15 +203,6 @@ void Board::Choose(int x, int y) {
         return;
     }
 
-    switch (cell->state) {
-        case HIDDEN:
-            DFS(coordX, coordY);
-            break;
-
-        case FLAGGED:
-            return;
-            break;
-    }
 
     if (CheckForWin() == true)
         this->state = WIN;
@@ -244,9 +245,7 @@ void Board::HandleEvent(sf::Event event) {
     }
 }
 
-void Board::Save() {
-    ofstream fout;
-    fout.open("save.dta");
+void Board::Save(ofstream &fout) {
     fout << width << " ";
     fout << height << " ";
     fout << bombCount << " ";
@@ -260,13 +259,9 @@ void Board::Save() {
         }
         fout << endl;
     }
-
-    fout.close();
 }
 
-void Board::Load() {
-    ifstream fin;
-    fin.open("save.dta");
+void Board::Load(ifstream &fin) {
     fin >> width;
     fin >> height;
     fin >> bombCount;
@@ -296,5 +291,4 @@ void Board::Load() {
                 grid[i][j].state = REVEALED;
         }
     }
-    fin.close();
 }
