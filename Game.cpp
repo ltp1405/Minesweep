@@ -106,7 +106,7 @@ void Game::render() {
     mWindow.clear(sf::Color::White);
 
     DrawGameTitle(mWindow);
-    DrawGameStatus(mWindow, board.bombCount, 0, currentTime.asSeconds()); 
+    DrawGameStatus(mWindow, board.bombCount, board.flagCount, currentTime.asSeconds()); 
     board.Draw(mWindow);
     easyStartBtn.draw(mWindow);
     mediumStartBtn.draw(mWindow);

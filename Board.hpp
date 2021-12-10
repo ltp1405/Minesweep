@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 enum CellType { BOMB, NORMAL };
 enum CellState { FLAGGED, HIDDEN, REVEALED };
@@ -37,6 +40,7 @@ public:
     int height;
     float scale = 1.f;
     int bombCount;
+    int flagCount;
     int revealedCount = 0;
     GameState state = PLAYING;
     BoardCell **grid;
@@ -47,8 +51,8 @@ public:
     void DFS(int x, int y);
     void ToggleFlag(int x, int y);
     void Choose(int x, int y);
-    // void Save();
-    // bool LoadSavedData();
+    void Save();
+    void Load();
 
 	void Draw(sf::RenderWindow& window);
     void HandleEvent(sf::Event event);

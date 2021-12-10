@@ -1,6 +1,4 @@
-#include <iostream>
 #include "Board.hpp"
-using namespace std;
 
 int Rand(int Min, int Max) {
     return rand() % (Max - Min + 1) + Min;
@@ -102,6 +100,8 @@ void Board::Initialize(int width, int height, int bombCount) {
     this->width = width;
     this->height = height;
     this->bombCount = bombCount;
+    flagCount = bombCount;
+
 
     this->grid = new BoardCell*[this->width];
     for (int i = 0; i < this->width; i++)
@@ -139,7 +139,7 @@ void Board::DFS(int x, int y) {
     BoardCell* cell = &grid[x][y];
     if (cell->state == HIDDEN) {
         cell->state = REVEALED;
-        this->revealedCount += 1;
+        revealedCount += 1;
         if (cell->normalCell.nearbyBombs == 0) {
             for (int i = 1; i <= 8; i++) {
                 int X = x + dx[i];
@@ -154,10 +154,13 @@ void Board::ToggleFlag(int x, int y) {
     int cellX, cellY;
     RealCoordToCellCoord(x, y, cellX, cellY);
     BoardCell* cell = &grid[cellX][cellY];
-    if (cell->state == HIDDEN)
+    if (cell->state == HIDDEN && flagCount > 0) {
         cell->state = FLAGGED;
-    else if (cell->state == FLAGGED)
+        flagCount--;
+    } else if (cell->state == FLAGGED) {
         cell->state = HIDDEN;
+        flagCount++;
+    }
 }
 
 void Board::SetNumberTexture(int n) {
@@ -179,7 +182,6 @@ void Board::SetHiddenTexture() {
 void Board::Choose(int x, int y) {
     int coordX, coordY;
     RealCoordToCellCoord(x, y, coordX, coordY);
-    cout << coordX << " " << coordY << endl;
     if (coordX < 0 || coordX > width - 1 || coordY < 0 || coordY > height - 1)
         return;
 
@@ -197,6 +199,7 @@ void Board::Choose(int x, int y) {
             break;
 
         case FLAGGED:
+            return;
             break;
     }
 
@@ -239,4 +242,59 @@ void Board::HandleEvent(sf::Event event) {
         default:
             break;
     }
+}
+
+void Board::Save() {
+    ofstream fout;
+    fout.open("save.dta");
+    fout << width << " ";
+    fout << height << " ";
+    fout << bombCount << " ";
+    fout << flagCount << " ";
+    fout << revealedCount << endl;
+    for (int i = 0; i < width; ++i) {
+        for (int j = 0; j < height; ++j) {
+            if (grid[i][j].type == BOMB)
+                fout << grid[i][j].type << " " << grid[i][j].state << " " << 0 << " ";
+            else fout << grid[i][j].type << " " << grid[i][j].state << " " << grid[i][j].normalCell.nearbyBombs << " ";
+        }
+        fout << endl;
+    }
+
+    fout.close();
+}
+
+void Board::Load() {
+    ifstream fin;
+    fin.open("save.dta");
+    fin >> width;
+    fin >> height;
+    fin >> bombCount;
+    Initialize(width, height, bombCount);
+    fin >> flagCount;
+    fin >> revealedCount;
+
+    int state;
+    int type;
+    int nearbyBombs;
+    for (int i = 0; i < width; ++i) {
+        for (int j = 0; j < height; ++j) {
+            fin >> type;
+            fin >> state;
+            fin >> nearbyBombs;
+            if (type == BOMB)
+                grid[i][j].type = BOMB;
+            else {
+                grid[i][j].type = NORMAL;
+                grid[i][j].normalCell.nearbyBombs = nearbyBombs;
+            }
+            if (state == FLAGGED)
+                grid[i][j].state = FLAGGED;
+            else if (state == HIDDEN)
+                grid[i][j].state = HIDDEN;
+            else
+                grid[i][j].state = REVEALED;
+        }
+    }
+    fin.close();
 }
