@@ -1,36 +1,6 @@
 #include "Menu.hpp"
 #include <iostream>
 
-Menu::Menu() {
-    width = 300;
-    height = 300;
-}
-
-Menu::~Menu() {
- }
-
-void Menu::draw(sf::RenderWindow &window) {
-    sf::Vector2u winSize = window.getSize();
-    sf::Font font;
-    font.loadFromFile("./resource/DejaVuSansMono.ttf");
-    sf::Text text;
-    text.setFont(font);
-    text.setString("Welcome to the Minesweeper");
-    text.setCharacterSize(32);
-    text.setFillColor(sf::Color::Black);
-    text.setPosition((float)winSize.x / 2 - 100, 200);
-
-
-    sf::RectangleShape rect(sf::Vector2f((float)width, (float)height));
-    rect.setOrigin(width / 2, height / 2);
-    rect.setPosition((float)winSize.x / 2, (float)winSize.y / 2);
-    rect.setFillColor(sf::Color::Green);
-
-    window.draw(rect);
-    window.draw(text);
-}
-
-
 void DrawGameoverMenu(sf::RenderWindow &window) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
@@ -76,20 +46,40 @@ void DrawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, floa
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
+    sf::Text bombText;
+    sf::Text flagText;
 
     text.setFont(font);
+    bombText.setFont(font);
+    flagText.setFont(font);
 
     int mins = (int)timer / 60;
     int snds = timer - mins*60;
-    char timeString[10];
-    sprintf(timeString, "%02d-%02d", mins, snds);
-    
+    char timeString[20];
+    sprintf(timeString, "Time: %02d-%02d", mins, snds);
+
     text.setString(timeString);
-    text.setCharacterSize(32);
+    text.setCharacterSize(24);
     text.setFillColor(sf::Color(0, 0, 0));
     text.setPosition(60.f, 250.f);
 
+    char bombString[20];
+    sprintf(bombString, "Bombs: %d", bombCount);
+    bombText.setString(bombString);
+    bombText.setCharacterSize(24);
+    bombText.setFillColor(sf::Color(0, 0, 0));
+    bombText.setPosition(60.f, 300.f);
+
+    char flagString[20];
+    sprintf(flagString, "Flags: %d", flagCount);
+    flagText.setString(flagString);
+    flagText.setCharacterSize(24);
+    flagText.setFillColor(sf::Color(0, 0, 0));
+    flagText.setPosition(60.f, 350.f);
+
     window.draw(text);
+    window.draw(bombText);
+    window.draw(flagText);
 }
 
 void DrawStartMenu(sf::RenderWindow &window) {

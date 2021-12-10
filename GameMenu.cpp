@@ -1,13 +1,17 @@
 #include "GameMenu.hpp"
-#include <iostream>
-using namespace std;
 
 Menu::Menu() {
     choice = 0;
-    numberOfChoice = 4;
+    numberOfChoice = 0;
     size = sf::Vector2u(300, 50);
     position = sf::Vector2i(20, 20);
 }
+
+void Menu::AddEntry(string name) {
+    entries[numberOfChoice] = name;
+    numberOfChoice++;
+}
+
 
 void Menu::HandleEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
@@ -40,12 +44,25 @@ void Menu::Draw(sf::RenderWindow &window) {
     for (int i = 0; i < numberOfChoice; ++i) {
         
         sf::RectangleShape rect(sf::Vector2f(size.x, size.y));
-        rect.setOrigin(size.x / 2, 0);
+        rect.setOrigin(size.x / 2, 14);
         rect.setPosition((float)winSize.x / 2, 200 + (size.y+10)*i);
-        if (i == choice)
+        sf::Font font;
+        sf::Text text;
+        font.loadFromFile("./resource/FFFFORWA.TTF");
+        text.setFont(font);
+        text.setString(entries[i]);
+        text.setPosition((float)winSize.x / 2 - 40, 200 + (size.y+10)*i);
+        text.setCharacterSize(24);
+        text.setFillColor(sf::Color::Yellow);
+        if (i == choice) {
             rect.setFillColor(sf::Color::Green);
-        else rect.setFillColor(sf::Color::Black);
+            text.setFillColor(sf::Color::White);
+        } else {
+            rect.setFillColor(sf::Color::Black);
+            text.setFillColor(sf::Color::Yellow);
+        }
         window.draw(rect);
+        window.draw(text);
     }
 }
 
@@ -56,7 +73,7 @@ int main() {
     
     while (window.isOpen()) {
         sf::Event event;
-        window.clear(sf::Color::White);
+        window.clear(sf::Color(220, 10, 30));
         while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window.close();
