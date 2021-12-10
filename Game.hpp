@@ -4,15 +4,16 @@
 #include "Board.hpp"
 #include "Menu.hpp"
 #include "Button.hpp"
+#include "GameMenu.hpp"
 
 
 class Game {
 public:
-    enum Scene { MENU, GAME, GAMEOVER, GAMEWIN };
+    enum Scene { MENU, GAME, PAUSE, GAMEOVER, GAMEWIN };
     enum Difficulty { EASY, MEDIUM, HARD };
 public:
     Game();
-    void run();
+    void Run();
 
 private:
     sf::Clock timer;
@@ -25,9 +26,15 @@ private:
     PushButton easyStartBtn;
     PushButton mediumStartBtn;
     PushButton hardStartBtn;
+    PushButton loadGameYesBtn;
+    PushButton loadGameNoBtn;
+    Menu menu;
 
-    void handleEvent();
-    void update();
-    void render();
+    void HandleEvent();
+    void Update();
+    void Render();
     void Reset();
+    void ResetTimer();
+    void Save();
+    void Load();
 };
