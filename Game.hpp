@@ -9,7 +9,7 @@
 
 class Game {
 public:
-    enum Scene { MENU, GAME, PAUSE, GAMEOVER, GAMEWIN };
+    enum Scene { MENU, SCOREBOARD, GAME, PAUSE, GAMEOVER, GAMEWIN };
     enum Difficulty { EASY, MEDIUM, HARD };
 public:
     Game();
@@ -30,11 +30,11 @@ private:
     PushButton loadGameNoBtn;
     Menu menu;
 
-    void HandleEvent();
-    void Update();
-    void Render();
-    void Reset();
-    void ResetTimer();
-    void Save();
-    void Load();
+    void handleEvent();
+    void update();
+    void render();
+    void reset();
+    void resetTimer();
+    void save();
+    void load();
 };

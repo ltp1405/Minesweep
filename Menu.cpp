@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 #include <iostream>
 
-void DrawGameoverMenu(sf::RenderWindow &window) {
+void drawGameoverMenu(sf::RenderWindow &window) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
@@ -25,7 +25,7 @@ void DrawGameoverMenu(sf::RenderWindow &window) {
     window.draw(text);
 }
 
-void DrawGameTitle(sf::RenderWindow &window) {
+void drawGameTitle(sf::RenderWindow &window) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
@@ -41,7 +41,7 @@ void DrawGameTitle(sf::RenderWindow &window) {
     window.draw(text);
 }
 
-void DrawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, float timer) {
+void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, float timer) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
@@ -82,7 +82,7 @@ void DrawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, floa
     window.draw(flagText);
 }
 
-void DrawStartMenu(sf::RenderWindow &window) {
+void drawStartMenu(sf::RenderWindow &window) {
     int w = 420;
     int h = 420;
     sf::Vector2u winSize = window.getSize();
@@ -107,7 +107,7 @@ void DrawStartMenu(sf::RenderWindow &window) {
     window.draw(text);
 }
 
-void DrawWin(sf::RenderWindow &window) {
+void drawWin(sf::RenderWindow &window) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();

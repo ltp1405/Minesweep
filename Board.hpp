@@ -47,29 +47,29 @@ public:
 
     Board();
     ~Board();
-    void Initialize(int width, int height, int bombCount);
+    void initialize(int width, int height, int bombCount);
     void DFS(int x, int y);
-    void ToggleFlag(int x, int y);
-    void Choose(int x, int y);
-    void Save(ofstream&);
-    void Load(ifstream&);
+    void toggleFlag(int x, int y);
+    void choose(int x, int y);
+    void save(ofstream&);
+    void load(ifstream&);
 
-	void Draw(sf::RenderWindow& window);
-    void HandleEvent(sf::Event event);
+	void draw(sf::RenderWindow& window);
+    void handleEvent(sf::Event event);
 
 private:
     int cellWidth = 32;
     sf::Sprite sprite;
     sf::Texture texture;
 
-    int CountBomb(int x, int y);
-    void PlaceBomb();
-    void GenerateGrid();
-    void SetNumberTexture(int n);
-    void SetBombTexture();
-    void SetFlagTexture();
-    void SetHiddenTexture();
-    bool CheckForWin();
-    void RealCoordToCellCoord(int rX, int rY, int &cX, int &cY);
-    void OpenAll();
+    int countBomb(int x, int y);
+    void placeBomb();
+    void generateGrid();
+    void setNumberTexture(int n);
+    void setBombTexture();
+    void setFlagTexture();
+    void setHiddenTexture();
+    bool checkForWin();
+    void realCoordToCellCoord(int rX, int rY, int &cX, int &cY);
+    void openAll();
 };

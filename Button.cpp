@@ -52,7 +52,7 @@ void PushButton::setSize(float x, float y) {
     mSize = sf::Vector2f(x, y);
 }
 
-void PushButton::HandleEvent(sf::Event e) {
+void PushButton::handleEvent(sf::Event e) {
     sf::Vector2f to = mSize + mPosition;
     sf::Vector2f from = mPosition;
 

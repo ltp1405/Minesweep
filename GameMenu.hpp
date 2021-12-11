@@ -11,16 +11,16 @@ public:
     string entries[100];
 
     Menu();
-    void HandleEvent(sf::Event event);
-    void Draw(sf::RenderWindow &window);
-    void AddEntry(string name);
+    void handleEvent(sf::Event event);
+    void draw(sf::RenderWindow &window);
+    void addEntry(string name);
 
 private:
     sf::Vector2u size;
     sf::Vector2i position;
 
-    void ChooseNext();
-    void ChoosePrev();
+    void chooseNext();
+    void choosePrev();
 };
 
 

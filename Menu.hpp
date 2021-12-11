@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include "Board.hpp"
 
-void DrawGameoverMenu(sf::RenderWindow &window);
-void DrawGameTitle(sf::RenderWindow &window);
-void DrawGameStatus(sf::RenderWindow &window, int bomb, int flag, float timer);
-void DrawStartMenu(sf::RenderWindow &window);
-void DrawWin(sf::RenderWindow &window);
+void drawGameoverMenu(sf::RenderWindow &window);
+void drawGameTitle(sf::RenderWindow &window);
+void drawGameStatus(sf::RenderWindow &window, int bomb, int flag, float timer);
+void drawStartMenu(sf::RenderWindow &window);
+void drawWin(sf::RenderWindow &window);

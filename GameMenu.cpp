@@ -7,20 +7,20 @@ Menu::Menu() {
     position = sf::Vector2i(20, 20);
 }
 
-void Menu::AddEntry(string name) {
+void Menu::addEntry(string name) {
     entries[numberOfChoice] = name;
     numberOfChoice++;
 }
 
 
-void Menu::HandleEvent(sf::Event event) {
+void Menu::handleEvent(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code) {
             case sf::Keyboard::Up :
-                ChooseNext();
+                chooseNext();
                 break;
             case sf::Keyboard::Down :
-                ChoosePrev();
+                choosePrev();
                 break;
             case sf::Keyboard::Enter :
                 choiceSelected = true;
@@ -28,18 +28,18 @@ void Menu::HandleEvent(sf::Event event) {
     }
 }
 
-void Menu::ChooseNext() {
+void Menu::chooseNext() {
     if (choice > 0)
         choice--;
 }
 
-void Menu::ChoosePrev() {
+void Menu::choosePrev() {
     if (choice < numberOfChoice-1)
         choice++;
 }
 
 
-void Menu::Draw(sf::RenderWindow &window) {
+void Menu::draw(sf::RenderWindow &window) {
     sf::Vector2u winSize = window.getSize();
     for (int i = 0; i < numberOfChoice; ++i) {
         
@@ -78,10 +78,10 @@ int main() {
                 if (event.type == sf::Event::Closed)
                     window.close();
                 else {
-                    menu.HandleEvent(event);
+                    menu.handleEvent(event);
                 }
         }
-        menu.Draw(window);
+        menu.draw(window);
         window.display();
     }
 }

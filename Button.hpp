@@ -13,7 +13,7 @@ public:
     void move(float x, float y);
     void setSize(float x, float y);
     void setText(string text);
-    void HandleEvent(sf::Event event);
+    void handleEvent(sf::Event event);
     void setFillColor(sf::Color color);
     void setHoverColor(sf::Color color);
     void setTextColor(sf::Color color);
