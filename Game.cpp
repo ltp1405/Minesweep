@@ -18,6 +18,9 @@ Game::Game()
     easyStartBtn.move(100.f, 440.f);
     mediumStartBtn.move(100.f, 520.f);
     hardStartBtn.move(100.f, 600.f);
+    easyStartBtn.setText("Easy");
+    mediumStartBtn.setText("Medium");
+    hardStartBtn.setText("Hard");
     currentScene = MENU;
     currentDifficulty = EASY;
     menu.AddEntry("Continue");

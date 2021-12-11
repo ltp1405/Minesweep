@@ -11,30 +11,50 @@ bool InBound(sf::Vector2f pos, sf::Vector2f from, sf::Vector2f to) {
 }
 
 PushButton::PushButton() {
-    mShape = sf::RectangleShape(sf::Vector2f(120.f, 50.f));
-}
+    mSize = sf::Vector2f(150.f, 50.f);
+    mFontSize = 18;
+    font.loadFromFile("./resource/FFFFORWA.TTF");
+    text = "";
 
-PushButton::PushButton(sf::Vector2f size, sf::Vector2f position) {
-    mShape = sf::RectangleShape(size);
-    mShape.setPosition(position);
+    mHoverColor = sf::Color::Green;
+    mFillColor = sf::Color::Yellow;
+    mTextColor = sf::Color::Black;
 }
 
 void PushButton::draw(sf::RenderWindow &window) {
+    sf::RectangleShape rect(mSize);
+    rect.move(mPosition);
     if (hovered)
-        mShape.setFillColor(sf::Color::Green);
+        rect.setFillColor(mHoverColor);
     else
-        mShape.setFillColor(sf::Color::Yellow);
+        rect.setFillColor(mFillColor);
 
-    window.draw(mShape);
+    sf::Text txt;
+    txt.setFont(font);
+    txt.setString(text);
+    txt.setCharacterSize(mFontSize);
+    txt.setFillColor(mTextColor);
+    sf::Vector2f pos = mPosition;
+    sf::Vector2f textPos = pos + sf::Vector2f(mSize/2.f);
+
+    txt.setOrigin(text.length()/2 * mFontSize * 0.8, mFontSize*0.5);
+    txt.setPosition(textPos);
+
+    window.draw(rect);
+    window.draw(txt);
 }
 
 void PushButton::move(float x, float y) {
-    mShape.setPosition(sf::Vector2f(x, y));
+    mPosition = sf::Vector2f(x, y);
+}
+
+void PushButton::setSize(float x, float y) {
+    mSize = sf::Vector2f(x, y);
 }
 
 void PushButton::HandleEvent(sf::Event e) {
-    sf::Vector2f to = mShape.getSize() + mShape.getPosition();
-    sf::Vector2f from = mShape.getPosition();
+    sf::Vector2f to = mSize + mPosition;
+    sf::Vector2f from = mPosition;
 
     switch (e.type) {
         case sf::Event::MouseMoved:
@@ -60,4 +80,20 @@ void PushButton::HandleEvent(sf::Event e) {
             clicked = false;
         }
     }
+}
+
+void PushButton::setText(string txt) {
+    text = txt;
+}
+
+void PushButton::setFillColor(sf::Color color) {
+    mFillColor = color;
+}
+
+void PushButton::setHoverColor(sf::Color color) {
+    mHoverColor = color;
+}
+
+void PushButton::setTextColor(sf::Color color) {
+    mTextColor = color;
 }
