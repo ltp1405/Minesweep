@@ -102,8 +102,11 @@ void Game::handleEvent() {
 void Game::update() {
     if (board.state == LOSE)
         currentScene = GAMEOVER;
-    else if (board.state == WIN)
+    else if (board.state == WIN) {
+        scoreBoard.save(currentTime.asSeconds(), currentDifficulty);
         currentScene = GAMEWIN;
+        board.state = PLAYING;
+    }
 
     if (currentScene == MENU) {
         if (menu.choiceSelected) {
@@ -178,6 +181,12 @@ void Game::render() {
         break;
 
     case GAMEWIN:
+        drawGameTitle(mWindow);
+        drawGameStatus(mWindow, board.bombCount, board.flagCount, currentTime.asSeconds()); 
+        board.draw(mWindow);
+        easyStartBtn.draw(mWindow);
+        mediumStartBtn.draw(mWindow);
+        hardStartBtn.draw(mWindow);
         drawWin(mWindow);
         break;
     }
@@ -188,7 +197,7 @@ void Game::render() {
 void Game::reset() {
     switch (currentDifficulty) {
     case EASY:
-        board.initialize(8, 8, 10);
+        board.initialize(8, 8, 1);
         break;
     case MEDIUM:
         board.initialize(16, 16, 40);
