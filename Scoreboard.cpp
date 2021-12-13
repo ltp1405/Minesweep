@@ -99,6 +99,8 @@ void Scoreboard::load() {
     hardScores.clear();
     ifstream fin;
     fin.open("record.dta");
+    if (!fin)
+        return;
     while (true) {
         float time;
         int difficulty;
