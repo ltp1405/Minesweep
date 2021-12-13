@@ -4,8 +4,8 @@ int Rand(int Min, int Max) {
     return rand() % (Max - Min + 1) + Min;
 }
 
-int dx[9] = { 0, -1, 0, 1, 1, 1, 0, -1, -1 };
-int dy[9] = { 0, -1, -1, -1, 0, 1, 1, 1, 0 };
+const int dx[9] = { 0, -1, 0, 1, 1, 1, 0, -1, -1 };
+const int dy[9] = { 0, -1, -1, -1, 0, 1, 1, 1, 0 };
 
 BoardCell::BoardCell(CellType t=NORMAL) {
     type = t;

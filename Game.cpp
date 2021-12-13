@@ -25,6 +25,7 @@ Game::Game()
     currentDifficulty = EASY;
     menu.addEntry("Continue");
     menu.addEntry("New Game");
+    menu.addEntry("Scoreboard");
     menu.addEntry("Quit");
 }
 
@@ -63,6 +64,15 @@ void Game::handleEvent() {
             easyStartBtn.handleEvent(e);
             mediumStartBtn.handleEvent(e);
             hardStartBtn.handleEvent(e);
+        }
+        break;
+    case SCOREBOARD:
+        while (mWindow.pollEvent(e)) {
+            if (e.type == sf::Event::KeyPressed
+                    && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                currentScene = MENU;
+                reset();
+            }
         }
         break;
     case GAMEOVER:
@@ -109,6 +119,10 @@ void Game::update() {
                 resetTimer();
                 break;
             case 2:
+                currentScene = SCOREBOARD;
+                scoreBoard.load();
+                break;
+            case 3:
                 mWindow.close();
                 break;
             }
@@ -147,6 +161,10 @@ void Game::render() {
         easyStartBtn.draw(mWindow);
         mediumStartBtn.draw(mWindow);
         hardStartBtn.draw(mWindow);
+        break;
+
+    case SCOREBOARD:
+        scoreBoard.draw(mWindow);
         break;
 
     case GAMEOVER:

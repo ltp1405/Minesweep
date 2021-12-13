@@ -5,6 +5,7 @@
 #include "Menu.hpp"
 #include "Button.hpp"
 #include "GameMenu.hpp"
+#include "Scoreboard.hpp"
 
 
 class Game {
@@ -16,6 +17,7 @@ public:
     void Run();
 
 private:
+    Scoreboard scoreBoard;
     sf::Clock timer;
     sf::Time currentTime;
     Board board;
