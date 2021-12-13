@@ -197,7 +197,7 @@ void Game::render() {
 void Game::reset() {
     switch (currentDifficulty) {
     case EASY:
-        board.initialize(8, 8, 1);
+        board.initialize(8, 8, 10);
         break;
     case MEDIUM:
         board.initialize(16, 16, 40);

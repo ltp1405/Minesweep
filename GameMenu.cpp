@@ -38,7 +38,6 @@ void Menu::choosePrev() {
         choice++;
 }
 
-
 void Menu::draw(sf::RenderWindow &window) {
     sf::Vector2u winSize = window.getSize();
     for (int i = 0; i < numberOfChoice; ++i) {
@@ -51,7 +50,8 @@ void Menu::draw(sf::RenderWindow &window) {
         font.loadFromFile("./resource/FFFFORWA.TTF");
         text.setFont(font);
         text.setString(entries[i]);
-        text.setPosition((float)winSize.x / 2 - 40, 200 + (size.y+10)*i);
+        int xOffset = entries[i].length()/2 * 24 * 0.72;
+        text.setPosition((float)winSize.x / 2 - xOffset, 200 + (size.y+10)*i);
         text.setCharacterSize(24);
         text.setFillColor(sf::Color::Yellow);
         if (i == choice) {
@@ -70,6 +70,7 @@ void Menu::draw(sf::RenderWindow &window) {
 int main() {
     sf::RenderWindow window(sf::VideoMode(500, 500), "Menu", sf::Style::Close);
     Menu menu;
+    menu.addEntry("HDJGNEGEDJGE");
     
     while (window.isOpen()) {
         sf::Event event;
