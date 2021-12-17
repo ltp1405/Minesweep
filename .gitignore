@@ -3,3 +3,5 @@ run
 token
 app
 minesweeper
+.ccls
+.ccls-cache

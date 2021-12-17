@@ -1,21 +1,24 @@
 #include "Board.hpp"
 
-int Rand(int Min, int Max) {
-    return rand() % (Max - Min + 1) + Min;
+int Rand(int Min, int Max) { return rand() % (Max - Min + 1) + Min; }
+
+const int dx[9] = {0, -1, 0, 1, 1, 1, 0, -1, -1};
+const int dy[9] = {0, -1, -1, -1, 0, 1, 1, 1, 0};
+
+BoardCell::BoardCell() {
+    type = NORMAL;
+    normalCell = NormalCell();
 }
 
-const int dx[9] = { 0, -1, 0, 1, 1, 1, 0, -1, -1 };
-const int dy[9] = { 0, -1, -1, -1, 0, 1, 1, 1, 0 };
-
-BoardCell::BoardCell(CellType t=NORMAL) {
+BoardCell::BoardCell(CellType t) {
     type = t;
     switch (type) {
-        case BOMB:
-            bombCell = BombCell();
-            break;
-        case NORMAL:
-            normalCell = NormalCell();
-            break;
+    case BOMB:
+        bombCell = BombCell();
+        break;
+    case NORMAL:
+        normalCell = NormalCell();
+        break;
     }
 }
 
@@ -26,9 +29,9 @@ Board::Board() {
 
 Board::~Board() {
     for (int i = 0; i < this->width; ++i) {
-        delete [] this->grid[i];
+        delete[] this->grid[i];
     }
-    delete [] this->grid;
+    delete[] this->grid;
 }
 
 void Board::placeBomb() {
@@ -65,32 +68,32 @@ int Board::countBomb(int x, int y) {
     return bombCount;
 }
 
-void Board::draw(sf::RenderWindow& window) {
+void Board::draw(sf::RenderWindow &window) {
     int posX, posY;
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++) {
             BoardCell cell = grid[i][j];
             switch (cell.state) {
-                case HIDDEN:
-                    setHiddenTexture();
-                    break;
+            case HIDDEN:
+                setHiddenTexture();
+                break;
 
-                case REVEALED:
-                    if (cell.type == NORMAL)
-                        setNumberTexture(grid[i][j].normalCell.nearbyBombs);
-                    else
-                        setBombTexture();
-                    break;
+            case REVEALED:
+                if (cell.type == NORMAL)
+                    setNumberTexture(grid[i][j].normalCell.nearbyBombs);
+                else
+                    setBombTexture();
+                break;
 
-                case FLAGGED:
-                    setFlagTexture();
-                    break;
+            case FLAGGED:
+                setFlagTexture();
+                break;
             }
 
-            scale = 480 / float((cellWidth*width));
+            scale = 480 / float((cellWidth * width));
             sprite.setScale(sf::Vector2f(scale, scale));
-            posX = x + i*cellWidth*scale;
-            posY = y + j*cellWidth*scale;
+            posX = x + i * cellWidth * scale;
+            posY = y + j * cellWidth * scale;
             sprite.setPosition(posX, posY);
             window.draw(sprite);
         }
@@ -102,8 +105,7 @@ void Board::initialize(int width, int height, int bombCount) {
     this->bombCount = bombCount;
     flagCount = bombCount;
 
-
-    this->grid = new BoardCell*[this->width];
+    this->grid = new BoardCell *[this->width];
     for (int i = 0; i < this->width; i++)
         this->grid[i] = new BoardCell[this->height];
 
@@ -133,10 +135,10 @@ void Board::initialize(int width, int height, int bombCount) {
 }
 
 void Board::DFS(int x, int y) {
-    if (x < 0 || x > width - 1 || y < 0 || y > height -1)
+    if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
         return;
 
-    BoardCell* cell = &grid[x][y];
+    BoardCell *cell = &grid[x][y];
     if (cell->state == HIDDEN) {
         cell->state = REVEALED;
         revealedCount += 1;
@@ -153,7 +155,7 @@ void Board::DFS(int x, int y) {
 void Board::toggleFlag(int x, int y) {
     int cellX, cellY;
     realCoordToCellCoord(x, y, cellX, cellY);
-    BoardCell* cell = &grid[cellX][cellY];
+    BoardCell *cell = &grid[cellX][cellY];
     if (cell->state == HIDDEN && flagCount > 0) {
         cell->state = FLAGGED;
         flagCount--;
@@ -187,13 +189,14 @@ void Board::choose(int x, int y) {
 
     BoardCell *cell = &grid[coordX][coordY];
     switch (cell->state) {
-        case FLAGGED:
-            return;
-            break;
+    case HIDDEN:
+        DFS(coordX, coordY);
+        break;
 
-        case HIDDEN:
-            DFS(coordX, coordY);
-            break;
+    // Fallthrough, flagged and revealed cell behave the same
+    case FLAGGED:
+    case REVEALED:
+        return;
     }
 
     if (cell->type == BOMB) {
@@ -202,7 +205,6 @@ void Board::choose(int x, int y) {
         openAll();
         return;
     }
-
 
     if (checkForWin() == true)
         this->state = WIN;
@@ -215,8 +217,8 @@ bool Board::checkForWin() {
 }
 
 void Board::realCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
-    cX = (rX - this->x) / (cellWidth*scale);
-    cY = (rY - this->y) / (cellWidth*scale);
+    cX = (rX - this->x) / (cellWidth * scale);
+    cY = (rY - this->y) / (cellWidth * scale);
 }
 
 void Board::openAll() {
@@ -229,19 +231,18 @@ void Board::openAll() {
 
 void Board::handleEvent(sf::Event event) {
     switch (event.type) {
-        case sf::Event::MouseButtonPressed:
-        {
-            int rX = event.mouseButton.x;
-            int rY = event.mouseButton.y;
-            if (event.mouseButton.button == sf::Mouse::Left) {
-                choose(rX, rY);
-            } else if (event.mouseButton.button == sf::Mouse::Right)
-                toggleFlag(rX, rY);
-            break;
-        }
+    case sf::Event::MouseButtonPressed: {
+        int rX = event.mouseButton.x;
+        int rY = event.mouseButton.y;
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            choose(rX, rY);
+        } else if (event.mouseButton.button == sf::Mouse::Right)
+            toggleFlag(rX, rY);
+        break;
+    }
 
-        default:
-            break;
+    default:
+        break;
     }
 }
 
@@ -254,8 +255,11 @@ void Board::save(ofstream &fout) {
     for (int i = 0; i < width; ++i) {
         for (int j = 0; j < height; ++j) {
             if (grid[i][j].type == BOMB)
-                fout << grid[i][j].type << " " << grid[i][j].state << " " << 0 << " ";
-            else fout << grid[i][j].type << " " << grid[i][j].state << " " << grid[i][j].normalCell.nearbyBombs << " ";
+                fout << grid[i][j].type << " " << grid[i][j].state << " " << 0
+                     << " ";
+            else
+                fout << grid[i][j].type << " " << grid[i][j].state << " "
+                     << grid[i][j].normalCell.nearbyBombs << " ";
         }
         fout << endl;
     }
