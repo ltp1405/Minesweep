@@ -10,7 +10,7 @@ void drawGameoverMenu(sf::RenderWindow &window) {
     sf::Vector2f rectSize(400.f, 350.f);
     sf::RectangleShape rect(rectSize);
     rect.setFillColor(bgColor);
-    rect.setOutlineColor(sf::Color(0,71,71));
+    rect.setOutlineColor(sf::Color(0, 71, 71));
     rect.setOutlineThickness(10);
     rect.setOrigin(rectSize / 2.f);
     rect.setPosition((float)windowSize.x / 2, (float)windowSize.y / 2);
@@ -19,7 +19,8 @@ void drawGameoverMenu(sf::RenderWindow &window) {
     text.setString("GAME OVER!");
     text.setCharacterSize(42);
     text.setFillColor(sf::Color::Black);
-    text.setPosition((float)windowSize.x / 2 - 160, (float)windowSize.y / 2 - 100);
+    text.setPosition((float)windowSize.x / 2 - 160,
+                     (float)windowSize.y / 2 - 100);
 
     window.draw(rect);
     window.draw(text);
@@ -30,7 +31,7 @@ void drawGameTitle(sf::RenderWindow &window) {
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
-    //sf::Color bgColor(66, 99, 245, 220);
+    // sf::Color bgColor(66, 99, 245, 220);
 
     text.setFont(font);
     text.setString("MINESWEEPER");
@@ -38,13 +39,14 @@ void drawGameTitle(sf::RenderWindow &window) {
     text.setFillColor(sf::Color(94, 45, 40));
     sf::FloatRect textRect = text.getLocalBounds();
     text.setOrigin(textRect.left + textRect.width / 2.0f,
-        textRect.top + textRect.height / 2.0f);
+                   textRect.top + textRect.height / 2.0f);
     text.setPosition(sf::Vector2f(window.getSize().x / 2.0f, 100));
 
     window.draw(text);
 }
 
-void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, float timer) {
+void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
+                    float timer) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     sf::Vector2u windowSize = window.getSize();
@@ -57,9 +59,9 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount, floa
     flagText.setFont(font);
 
     int mins = (int)timer / 60;
-    int snds = timer - mins*60;
+    int snds = timer - mins * 60;
     char timeString[20];
-    sprintf_s(timeString, "Time: %02d-%02d", mins, snds);
+    sprintf(timeString, "Time: %02d-%02d", mins, snds);
 
     text.setString(timeString);
     text.setCharacterSize(24);
@@ -98,9 +100,8 @@ void drawStartMenu(sf::RenderWindow &window) {
     text.setFillColor(sf::Color::Black);
     text.setPosition((float)winSize.x / 2 - 120, 400);
 
-
     sf::RectangleShape rect(sf::Vector2f((float)w, (float)h));
-    rect.setOutlineColor(sf::Color(0,71,71));
+    rect.setOutlineColor(sf::Color(0, 71, 71));
     rect.setOutlineThickness(10);
     rect.setOrigin(w / 2, h / 2);
     rect.setPosition((float)winSize.x / 2, (float)winSize.y / 2);
@@ -119,7 +120,7 @@ void drawWin(sf::RenderWindow &window) {
     sf::Vector2f rectSize(400.f, 350.f);
     sf::RectangleShape rect(rectSize);
     rect.setFillColor(bgColor);
-    rect.setOutlineColor(sf::Color(0,71,71));
+    rect.setOutlineColor(sf::Color(0, 71, 71));
     rect.setOutlineThickness(10);
     rect.setOrigin(rectSize / 2.f);
     rect.setPosition((float)windowSize.x / 2, (float)windowSize.y / 2);
@@ -128,7 +129,8 @@ void drawWin(sf::RenderWindow &window) {
     text.setString("YOU WIN!");
     text.setCharacterSize(42);
     text.setFillColor(sf::Color::Black);
-    text.setPosition((float)windowSize.x / 2 - 160, (float)windowSize.y / 2 - 100);
+    text.setPosition((float)windowSize.x / 2 - 160,
+                     (float)windowSize.y / 2 - 100);
 
     window.draw(rect);
     window.draw(text);
