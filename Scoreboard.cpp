@@ -2,11 +2,10 @@
 
 Scoreboard::Scoreboard() {
     font.loadFromFile("./resource/FFFFORWA.TTF");
-    fillColor = sf::Color::Yellow,
-    borderColor = sf::Color::Black,
+    fillColor = sf::Color::Yellow, borderColor = sf::Color::Black,
     textColor = sf::Color::Black;
     size = sf::Vector2f(640.f, 600.f);
-    pos  = sf::Vector2f(300.f, 150.f);
+    pos = sf::Vector2f(300.f, 150.f);
     maxDisplayEntries = 8;
     fontSize = 16;
     titleFontSize = 28;
@@ -15,10 +14,8 @@ Scoreboard::Scoreboard() {
     hardScores.difficulty = 2;
 }
 
-void Scoreboard::drawColumn(sf::RenderWindow &window,
-        const string titleString,
-        Scores scores,
-        sf::Vector2f position) {
+void Scoreboard::drawColumn(sf::RenderWindow &window, const string titleString,
+                            Scores scores, sf::Vector2f position) {
     float lineSpacing = 40.f;
     float titleSpacing = 40.f;
     sf::Text text;
@@ -35,9 +32,8 @@ void Scoreboard::drawColumn(sf::RenderWindow &window,
     title.setPosition(position);
     title.setOrigin(titleString.length() * titleFontSize / 1.8, 0.f);
 
-
     title.setString(titleString);
-    float xOffset = titleFontSize * 0.8 * (titleString.length()/2) - 24.f;
+    float xOffset = titleFontSize * 0.8 * (titleString.length() / 2) - 24.f;
     text.move(xOffset, titleSpacing);
     window.draw(title);
     int i = 0;
@@ -59,7 +55,7 @@ void Scoreboard::drawBigTitle(sf::RenderWindow &window) {
     title.setCharacterSize(40);
     title.setString("SCOREBOARD");
     title.setPosition(275.f, 50.f);
-        window.draw(title);
+    window.draw(title);
 }
 
 void Scoreboard::draw(sf::RenderWindow &window) {
@@ -83,7 +79,6 @@ void Scoreboard::draw(sf::RenderWindow &window) {
     drawColumn(window, "MEDIUM", mediumScores, colPos);
     colPos += sf::Vector2f(colSpacing, 0);
     drawColumn(window, "HARD", hardScores, colPos);
-
 }
 
 void Scoreboard::save(float time, int difficulty) {
@@ -121,8 +116,9 @@ void Scoreboard::load() {
 }
 
 // int main() {
-//     sf::RenderWindow window(sf::VideoMode(900, 900), "TESTING", sf::Style::Close);
-// 
+//     sf::RenderWindow window(sf::VideoMode(900, 900), "TESTING",
+//     sf::Style::Close);
+//
 //     Scoreboard sBoard;
 //     sBoard.load();
 //     while (window.isOpen()) {
