@@ -158,6 +158,8 @@ void Board::toggleFlag(int x, int y) {
     if (coordX < 0 || coordX > width - 1 || coordY < 0 || coordY > height - 1)
         return;
 
+    sound.playFlag();
+
     BoardCell *cell = &grid[coordX][coordY];
     if (cell->state == HIDDEN && flagCount > 0) {
         cell->state = FLAGGED;
@@ -190,6 +192,8 @@ void Board::choose(int x, int y) {
     if (coordX < 0 || coordX > width - 1 || coordY < 0 || coordY > height - 1)
         return;
 
+    sound.playClick();
+
     BoardCell *cell = &grid[coordX][coordY];
     switch (cell->state) {
     case HIDDEN:
@@ -209,8 +213,9 @@ void Board::choose(int x, int y) {
         return;
     }
 
-    if (checkForWin() == true)
+    if (checkForWin() == true) {
         this->state = WIN;
+    }
 }
 
 bool Board::checkForWin() {

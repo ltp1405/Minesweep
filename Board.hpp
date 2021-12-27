@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Sound.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <iostream>
@@ -89,6 +91,8 @@ class Board {
     const int cellWidth = 32;
     sf::Sprite sprite;
     sf::Texture texture;
+
+    Sound sound;
 
     /**
      * Count number of bombs around a specific cell
