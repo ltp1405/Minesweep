@@ -4,8 +4,8 @@ int Rand(int Min, int Max) {
     return rand() % (Max - Min + 1) + Min;
 }
 
-int dx[9] = { 0, -1, 0, 1, 1, 1, 0, -1, -1 };
-int dy[9] = { 0, -1, -1, -1, 0, 1, 1, 1, 0 };
+const int dx[9] = { 0, -1, 0, 1, 1, 1, 0, -1, -1 };
+const int dy[9] = { 0, -1, -1, -1, 0, 1, 1, 1, 0 };
 
 BoardCell::BoardCell(CellType t=NORMAL) {
     type = t;
@@ -20,7 +20,7 @@ BoardCell::BoardCell(CellType t=NORMAL) {
 }
 
 Board::Board() {
-    texture.loadFromFile("./resource/tiles.jpg");
+    texture.loadFromFile("./resource/tiles.png");
     sprite.setTexture(texture);
 }
 
@@ -31,7 +31,7 @@ Board::~Board() {
     delete [] this->grid;
 }
 
-void Board::PlaceBomb() {
+void Board::placeBomb() {
     int count = bombCount;
     while (count > 0) {
         int x = Rand(0, width - 1);
@@ -44,13 +44,13 @@ void Board::PlaceBomb() {
     }
 }
 
-void Board::GenerateGrid() {
+void Board::generateGrid() {
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++)
             this->grid[i][j] = BoardCell();
 }
 
-int Board::CountBomb(int x, int y) {
+int Board::countBomb(int x, int y) {
     int bombCount = 0;
     // count 8 block for bombs
     for (int k = 0; k <= 8; k++) {
@@ -65,25 +65,25 @@ int Board::CountBomb(int x, int y) {
     return bombCount;
 }
 
-void Board::Draw(sf::RenderWindow& window) {
+void Board::draw(sf::RenderWindow& window) {
     int posX, posY;
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++) {
             BoardCell cell = grid[i][j];
             switch (cell.state) {
                 case HIDDEN:
-                    SetHiddenTexture();
+                    setHiddenTexture();
                     break;
 
                 case REVEALED:
                     if (cell.type == NORMAL)
-                        SetNumberTexture(grid[i][j].normalCell.nearbyBombs);
+                        setNumberTexture(grid[i][j].normalCell.nearbyBombs);
                     else
-                        SetBombTexture();
+                        setBombTexture();
                     break;
 
                 case FLAGGED:
-                    SetFlagTexture();
+                    setFlagTexture();
                     break;
             }
 
@@ -96,7 +96,7 @@ void Board::Draw(sf::RenderWindow& window) {
         }
 }
 
-void Board::Initialize(int width, int height, int bombCount) {
+void Board::initialize(int width, int height, int bombCount) {
     this->width = width;
     this->height = height;
     this->bombCount = bombCount;
@@ -110,8 +110,8 @@ void Board::Initialize(int width, int height, int bombCount) {
     this->revealedCount = 0;
     this->state = PLAYING;
 
-    GenerateGrid();
-    PlaceBomb();
+    generateGrid();
+    placeBomb();
 
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++) {
@@ -150,9 +150,9 @@ void Board::DFS(int x, int y) {
     }
 }
 
-void Board::ToggleFlag(int x, int y) {
+void Board::toggleFlag(int x, int y) {
     int cellX, cellY;
-    RealCoordToCellCoord(x, y, cellX, cellY);
+    realCoordToCellCoord(x, y, cellX, cellY);
     BoardCell* cell = &grid[cellX][cellY];
     if (cell->state == HIDDEN && flagCount > 0) {
         cell->state = FLAGGED;
@@ -163,25 +163,25 @@ void Board::ToggleFlag(int x, int y) {
     }
 }
 
-void Board::SetNumberTexture(int n) {
+void Board::setNumberTexture(int n) {
     sprite.setTextureRect(sf::IntRect(n * cellWidth, 0, cellWidth, cellWidth));
 }
 
-void Board::SetBombTexture() {
+void Board::setBombTexture() {
     sprite.setTextureRect(sf::IntRect(9 * cellWidth, 0, cellWidth, cellWidth));
 }
 
-void Board::SetFlagTexture() {
+void Board::setFlagTexture() {
     sprite.setTextureRect(sf::IntRect(11 * cellWidth, 0, cellWidth, cellWidth));
 }
 
-void Board::SetHiddenTexture() {
+void Board::setHiddenTexture() {
     sprite.setTextureRect(sf::IntRect(10 * cellWidth, 0, cellWidth, cellWidth));
 }
 
-void Board::Choose(int x, int y) {
+void Board::choose(int x, int y) {
     int coordX, coordY;
-    RealCoordToCellCoord(x, y, coordX, coordY);
+    realCoordToCellCoord(x, y, coordX, coordY);
     if (coordX < 0 || coordX > width - 1 || coordY < 0 || coordY > height - 1)
         return;
 
@@ -199,27 +199,27 @@ void Board::Choose(int x, int y) {
     if (cell->type == BOMB) {
         cell->state = REVEALED;
         this->state = LOSE;
-        OpenAll();
+        openAll();
         return;
     }
 
 
-    if (CheckForWin() == true)
+    if (checkForWin() == true)
         this->state = WIN;
 }
 
-bool Board::CheckForWin() {
+bool Board::checkForWin() {
     if (revealedCount + bombCount == width * height)
         return true;
     return false;
 }
 
-void Board::RealCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
+void Board::realCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
     cX = (rX - this->x) / (cellWidth*scale);
     cY = (rY - this->y) / (cellWidth*scale);
 }
 
-void Board::OpenAll() {
+void Board::openAll() {
     for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++) {
             if (grid[i][j].type == BOMB)
@@ -227,16 +227,16 @@ void Board::OpenAll() {
         }
 }
 
-void Board::HandleEvent(sf::Event event) {
+void Board::handleEvent(sf::Event event) {
     switch (event.type) {
         case sf::Event::MouseButtonPressed:
         {
             int rX = event.mouseButton.x;
             int rY = event.mouseButton.y;
             if (event.mouseButton.button == sf::Mouse::Left) {
-                Choose(rX, rY);
+                choose(rX, rY);
             } else if (event.mouseButton.button == sf::Mouse::Right)
-                ToggleFlag(rX, rY);
+                toggleFlag(rX, rY);
             break;
         }
 
@@ -245,7 +245,7 @@ void Board::HandleEvent(sf::Event event) {
     }
 }
 
-void Board::Save(ofstream &fout) {
+void Board::save(ofstream &fout) {
     fout << width << " ";
     fout << height << " ";
     fout << bombCount << " ";
@@ -261,11 +261,11 @@ void Board::Save(ofstream &fout) {
     }
 }
 
-void Board::Load(ifstream &fin) {
+void Board::load(ifstream &fin) {
     fin >> width;
     fin >> height;
     fin >> bombCount;
-    Initialize(width, height, bombCount);
+    initialize(width, height, bombCount);
     fin >> flagCount;
     fin >> revealedCount;
 
