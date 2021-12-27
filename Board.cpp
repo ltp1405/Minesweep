@@ -23,7 +23,7 @@ BoardCell::BoardCell(CellType t) {
 }
 
 Board::Board() {
-    texture.loadFromFile("./resource/tiles.jpg");
+    texture.loadFromFile("./resource/tiles.png");
     sprite.setTexture(texture);
 }
 
@@ -240,7 +240,6 @@ void Board::handleEvent(sf::Event event) {
             toggleFlag(rX, rY);
         break;
     }
-
     default:
         break;
     }
