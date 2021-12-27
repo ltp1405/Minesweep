@@ -31,6 +31,8 @@ private:
     PushButton loadGameYesBtn;
     PushButton loadGameNoBtn;
     Menu menu;
+    sf::Sprite sprite;
+    sf::Texture texture;
 
     void handleEvent();
     void update();

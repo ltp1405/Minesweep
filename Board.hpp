@@ -37,6 +37,7 @@ struct BoardCell {
 
 class Board {
   public:
+    const int SIZE = 576;
     int x = 0;
     int y = 0;
     int width;
@@ -85,7 +86,7 @@ class Board {
     void handleEvent(sf::Event event);
 
   private:
-    int cellWidth = 32;
+    const int cellWidth = 32;
     sf::Sprite sprite;
     sf::Texture texture;
 

@@ -26,23 +26,14 @@ void drawGameoverMenu(sf::RenderWindow &window) {
     window.draw(text);
 }
 
-void drawGameTitle(sf::RenderWindow &window) {
-    sf::Font font;
-    font.loadFromFile("./resource/FFFFORWA.TTF");
-    sf::Vector2u windowSize = window.getSize();
-    sf::Text text;
-    // sf::Color bgColor(66, 99, 245, 220);
+void drawBackground(sf::RenderWindow &window) {
+    sf::Sprite sprite;
+    sf::Texture texture;
+    
+    texture.loadFromFile("./resource/ingame-background.png");
+    sprite.setTexture(texture);
 
-    text.setFont(font);
-    text.setString("MINESWEEPER");
-    text.setCharacterSize(64);
-    text.setFillColor(sf::Color(94, 45, 40));
-    sf::FloatRect textRect = text.getLocalBounds();
-    text.setOrigin(textRect.left + textRect.width / 2.0f,
-                   textRect.top + textRect.height / 2.0f);
-    text.setPosition(sf::Vector2f(window.getSize().x / 2.0f, 100));
-
-    window.draw(text);
+    window.draw(sprite);
 }
 
 void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
@@ -61,7 +52,7 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     int mins = (int)timer / 60;
     int snds = timer - mins * 60;
     char timeString[20];
-    sprintf(timeString, "Time: %02d-%02d", mins, snds);
+    sprintf_s(timeString, "Time: %02d:%02d", mins, snds);
 
     text.setString(timeString);
     text.setCharacterSize(24);
@@ -69,14 +60,14 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     text.setPosition(60.f, 250.f);
 
     char bombString[20];
-    sprintf(bombString, "Bombs: %d", bombCount);
+    sprintf_s(bombString, "Bombs: %d", bombCount);
     bombText.setString(bombString);
     bombText.setCharacterSize(24);
     bombText.setFillColor(sf::Color(0, 0, 0));
     bombText.setPosition(60.f, 300.f);
 
     char flagString[20];
-    sprintf(flagString, "Flags: %d", flagCount);
+    sprintf_s(flagString, "Flags: %d", flagCount);
     flagText.setString(flagString);
     flagText.setCharacterSize(24);
     flagText.setFillColor(sf::Color(0, 0, 0));

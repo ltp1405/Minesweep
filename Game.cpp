@@ -7,14 +7,16 @@ using namespace std;
 int main() {
     Game game;
     game.Run();
+
+    return 0;
 }
 
 Game::Game() {
-    mWindow.create(sf::VideoMode(900, 900), "Minesweeper", sf::Style::Close);
+    mWindow.create(sf::VideoMode(1152, 896), "Minesweeper", sf::Style::Close);
     font.loadFromFile("./resource/DejaVuSansMono.ttf");
     srand(time(0));
-    board.x = 300;
-    board.y = 210;
+    board.x = 416;
+    board.y = 160;
     easyStartBtn.move(100.f, 440.f);
     mediumStartBtn.move(100.f, 520.f);
     hardStartBtn.move(100.f, 600.f);
@@ -154,12 +156,15 @@ void Game::render() {
 
     switch (currentScene) {
     case MENU:
-        drawGameTitle(mWindow);
+        texture.loadFromFile("./resource/background.png");
+        sprite.setTexture(texture);
+        mWindow.draw(sprite);
+        //drawGameTitle(mWindow);
         menu.draw(mWindow);
         break;
 
     case GAME:
-        drawGameTitle(mWindow);
+        drawBackground(mWindow);
         drawGameStatus(mWindow, board.bombCount, board.flagCount,
                        currentTime.asSeconds());
         board.draw(mWindow);
@@ -173,7 +178,7 @@ void Game::render() {
         break;
 
     case GAMEOVER:
-        drawGameTitle(mWindow);
+        drawBackground(mWindow);
         drawGameStatus(mWindow, board.bombCount, board.flagCount,
                        currentTime.asSeconds());
         board.draw(mWindow);
@@ -184,7 +189,7 @@ void Game::render() {
         break;
 
     case GAMEWIN:
-        drawGameTitle(mWindow);
+        drawBackground(mWindow);
         drawGameStatus(mWindow, board.bombCount, board.flagCount,
                        currentTime.asSeconds());
         board.draw(mWindow);

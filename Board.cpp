@@ -90,7 +90,7 @@ void Board::draw(sf::RenderWindow &window) {
                 break;
             }
 
-            scale = 480 / float((cellWidth * width));
+            scale = SIZE / float((cellWidth * width));
             sprite.setScale(sf::Vector2f(scale, scale));
             posX = x + i * cellWidth * scale;
             posY = y + j * cellWidth * scale;
