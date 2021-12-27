@@ -69,14 +69,14 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     text.setPosition(60.f, 250.f);
 
     char bombString[20];
-    sprintf_s(bombString, "Bombs: %d", bombCount);
+    sprintf(bombString, "Bombs: %d", bombCount);
     bombText.setString(bombString);
     bombText.setCharacterSize(24);
     bombText.setFillColor(sf::Color(0, 0, 0));
     bombText.setPosition(60.f, 300.f);
 
     char flagString[20];
-    sprintf_s(flagString, "Flags: %d", flagCount);
+    sprintf(flagString, "Flags: %d", flagCount);
     flagText.setString(flagString);
     flagText.setCharacterSize(24);
     flagText.setFillColor(sf::Color(0, 0, 0));
