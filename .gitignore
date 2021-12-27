@@ -1,7 +1,5 @@
-*.o
-run
-token
-app
-minesweeper
-.ccls
-.ccls-cache
+CMakeLists.txt
+a.out
+save.dta
+/build
+/src
