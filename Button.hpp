@@ -3,9 +3,8 @@
 #include <string>
 using namespace std;
 
-
 class PushButton {
-public:
+  public:
     PushButton();
 
     void draw(sf::RenderWindow &window);
@@ -21,7 +20,7 @@ public:
     bool clicked = false;
     bool hovered = false;
 
-private:
+  private:
     string text;
     sf::Font font;
     int mFontSize;
