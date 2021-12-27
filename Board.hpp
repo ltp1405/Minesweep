@@ -61,6 +61,10 @@ class Board {
      */
     void initialize(int width, int height, int bombCount);
 
+    /**
+     * extend none boom cell
+     * @param x,y cell position
+     */
     void DFS(int x, int y);
 
     /**
