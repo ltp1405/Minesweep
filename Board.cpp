@@ -153,9 +153,12 @@ void Board::DFS(int x, int y) {
 }
 
 void Board::toggleFlag(int x, int y) {
-    int cellX, cellY;
-    realCoordToCellCoord(x, y, cellX, cellY);
-    BoardCell *cell = &grid[cellX][cellY];
+    int coordX, coordY;
+    realCoordToCellCoord(x, y, coordX, coordY);
+    if (coordX < 0 || coordX > width - 1 || coordY < 0 || coordY > height - 1)
+        return;
+
+    BoardCell *cell = &grid[coordX][coordY];
     if (cell->state == HIDDEN && flagCount > 0) {
         cell->state = FLAGGED;
         flagCount--;
@@ -217,6 +220,14 @@ bool Board::checkForWin() {
 }
 
 void Board::realCoordToCellCoord(int rX, int rY, int &cX, int &cY) {
+    if (rX < this->x) {
+        cX = -1;
+        return;
+    }
+    if (rY < this->y) {
+        cY = -1;
+        return;
+    }
     cX = (rX - this->x) / (cellWidth * scale);
     cY = (rY - this->y) / (cellWidth * scale);
 }
