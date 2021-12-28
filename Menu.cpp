@@ -40,10 +40,25 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
                     float timer) {
     sf::Font font;
     font.loadFromFile("./resource/FFFFORWA.TTF");
+    sf::Texture bombCountTexture;
+    bombCountTexture.loadFromFile("./resource/boom-count.png");
+    sf::Texture clockTexture;
+    clockTexture.loadFromFile("./resource/clock.png");
+    sf::Texture boxTexture;
+    boxTexture.loadFromFile("./resource/count-box.png");
     sf::Vector2u windowSize = window.getSize();
     sf::Text text;
     sf::Text bombText;
     sf::Text flagText;
+    sf::Sprite boxSprite;
+    sf::Sprite clockSprite;
+    sf::Sprite bombCountSprite;
+    boxSprite.setTexture(boxTexture);
+    boxSprite.setScale(0.75, 0.75);
+    clockSprite.setTexture(clockTexture);
+    clockSprite.setScale(0.75, 0.75);
+    bombCountSprite.setTexture(bombCountTexture);
+    bombCountSprite.setScale(0.75, 0.75);
 
     text.setFont(font);
     bombText.setFont(font);
@@ -52,26 +67,26 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     int mins = (int)timer / 60;
     int snds = timer - mins * 60;
     char timeString[20];
-    snprintf(timeString, 20, "Time: %02d:%02d", mins, snds);
-
+    snprintf(timeString, 20, "%02d:%02d", mins, snds);
     text.setString(timeString);
     text.setCharacterSize(24);
     text.setFillColor(sf::Color(0, 0, 0));
-    text.setPosition(60.f, 250.f);
-
-    char bombString[20];
-    snprintf(bombString, 20, "Bombs: %d", bombCount);
-    bombText.setString(bombString);
-    bombText.setCharacterSize(24);
-    bombText.setFillColor(sf::Color(0, 0, 0));
-    bombText.setPosition(60.f, 300.f);
+    text.setPosition(210.f, 160.f);
+    clockSprite.setPosition(60.f, 100.f);
+    boxSprite.setPosition(160.f, 140.f);
+    window.draw(boxSprite);
+    window.draw(clockSprite);
 
     char flagString[20];
-    snprintf(flagString, 20, "Flags: %d", flagCount);
+    snprintf(flagString, 20, "%d", flagCount);
     flagText.setString(flagString);
     flagText.setCharacterSize(24);
     flagText.setFillColor(sf::Color(0, 0, 0));
-    flagText.setPosition(60.f, 350.f);
+    flagText.setPosition(230.f, 260.f);
+    bombCountSprite.setPosition(60.f, 200.f);
+    boxSprite.setPosition(160.f, 240.f);
+    window.draw(boxSprite);
+    window.draw(bombCountSprite);
 
     window.draw(text);
     window.draw(bombText);

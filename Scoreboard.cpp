@@ -2,7 +2,7 @@
 
 Scoreboard::Scoreboard() {
     font.loadFromFile("./resource/FFFFORWA.TTF");
-    fillColor = sf::Color::Yellow, borderColor = sf::Color::Black,
+    fillColor = sf::Color(237, 205, 97), borderColor = sf::Color::Black,
     textColor = sf::Color::Black;
     size = sf::Vector2f(640.f, 600.f);
     pos = sf::Vector2f(300.f, 150.f);
@@ -52,9 +52,9 @@ void Scoreboard::drawBigTitle(sf::RenderWindow &window) {
     sf::Text title;
     title.setFont(font);
     title.setFillColor(textColor);
-    title.setCharacterSize(40);
+    title.setCharacterSize(48);
     title.setString("SCOREBOARD");
-    title.setPosition(275.f, 50.f);
+    title.setPosition(375.f, 50.f);
     window.draw(title);
 }
 

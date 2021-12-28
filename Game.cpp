@@ -16,9 +16,9 @@ Game::Game() {
     srand(time(0));
     board.x = 416;
     board.y = 160;
-    easyStartBtn.move(80.f, 400.f);
-    mediumStartBtn.move(80.f, 550.f);
-    hardStartBtn.move(80.f, 700.f);
+    easyStartBtn.move(80.f, 350.f);
+    mediumStartBtn.move(80.f, 500.f);
+    hardStartBtn.move(80.f, 650.f);
     easyStartBtn.setText("Easy");
     mediumStartBtn.setText("Medium");
     hardStartBtn.setText("Hard");
@@ -26,7 +26,7 @@ Game::Game() {
     currentDifficulty = EASY;
     menu.addEntry("Continue");
     menu.addEntry("New Game");
-    menu.addEntry("Scoreboard");
+    menu.addEntry("Scores");
     menu.addEntry("Quit");
 }
 
@@ -70,8 +70,10 @@ void Game::handleEvent() {
         break;
     case SCOREBOARD:
         while (mWindow.pollEvent(e)) {
-            if (e.type == sf::Event::KeyPressed &&
-                sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            if (e.type == sf::Event::Closed)
+                mWindow.close();
+            else if (e.type == sf::Event::KeyPressed &&
+                     sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 currentScene = MENU;
                 reset();
             }
@@ -173,6 +175,9 @@ void Game::render() {
         break;
 
     case SCOREBOARD:
+        texture.loadFromFile("./resource/background.png");
+        sprite.setTexture(texture);
+        mWindow.draw(sprite);
         scoreBoard.draw(mWindow);
         break;
 

@@ -5,7 +5,7 @@ using namespace std;
 
 class PushButton {
   public:
-    PushButton();
+    PushButton(bool menu = false);
 
     void draw(sf::RenderWindow &window);
     void move(sf::Vector2f pos);
