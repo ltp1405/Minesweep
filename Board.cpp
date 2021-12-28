@@ -216,7 +216,7 @@ void Board::choose(int x, int y) {
 
     if (checkForWin() == true) {
         this->state = WIN;
-        sound.playLose();
+        sound.playWin();
     }
 }
 
