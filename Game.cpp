@@ -16,9 +16,9 @@ Game::Game() {
     srand(time(0));
     board.x = 416;
     board.y = 160;
-    easyStartBtn.move(100.f, 440.f);
-    mediumStartBtn.move(100.f, 520.f);
-    hardStartBtn.move(100.f, 600.f);
+    easyStartBtn.move(80.f, 400.f);
+    mediumStartBtn.move(80.f, 550.f);
+    hardStartBtn.move(80.f, 700.f);
     easyStartBtn.setText("Easy");
     mediumStartBtn.setText("Medium");
     hardStartBtn.setText("Hard");

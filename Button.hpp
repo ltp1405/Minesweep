@@ -17,6 +17,8 @@ class PushButton {
     void setHoverColor(sf::Color color);
     void setTextColor(sf::Color color);
     void setTextSize(int size);
+    void setNormalButtonTexture(const char *filename);
+    void setHoverButtonTexture(const char *filename);
     bool clicked = false;
     bool hovered = false;
 
@@ -26,7 +28,8 @@ class PushButton {
     int mFontSize;
 
     sf::RectangleShape mShape;
-    sf::Texture mTexture;
+    sf::Texture mHoverTexture;
+    sf::Texture mNormalTexture;
 
     sf::Vector2f mPosition;
     sf::Vector2f mSize;

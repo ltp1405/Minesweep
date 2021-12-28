@@ -70,14 +70,14 @@ void Menu::choosePrev() {
 void Menu::draw(sf::RenderWindow &window) {
     sf::Vector2u winSize = window.getSize();
     for (int i = 0; i < numberOfChoice; ++i) {
-        entries[i].move(window.getSize().x / 2 - size.x / 2, window.getSize().y / 2 - 200 + i * 100);
+        entries[i].move(window.getSize().x / 2 - size.x / 2,
+                        window.getSize().y / 2 - 200 + i * 120);
         entries[i].draw(window);
     }
 }
 
 void Menu::getChoiceFromMousePosition(sf::Vector2f mousePos,
-                                      sf::Vector2f winSize) {
-}
+                                      sf::Vector2f winSize) {}
 
 /*
 int main() {

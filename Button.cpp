@@ -10,23 +10,26 @@ bool InBound(sf::Vector2f pos, sf::Vector2f from, sf::Vector2f to) {
 }
 
 PushButton::PushButton() {
-    mSize = sf::Vector2f(150.f, 50.f);
-    mFontSize = 18;
+    mFontSize = 24;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     text = "";
 
+    mNormalTexture.loadFromFile("./resource/ingame-button-hover.png");
+    mHoverTexture.loadFromFile("./resource/ingame-button.png");
+    mSize = sf::Vector2f(mNormalTexture.getSize());
     mHoverColor = sf::Color::Green;
     mFillColor = sf::Color::Yellow;
     mTextColor = sf::Color::Black;
 }
 
 void PushButton::draw(sf::RenderWindow &window) {
-    sf::RectangleShape rect(mSize);
-    rect.move(mPosition);
+    mSize = sf::Vector2f(mNormalTexture.getSize());
+    sf::Sprite sprite;
+    sprite.move(mPosition);
     if (hovered)
-        rect.setFillColor(mHoverColor);
+        sprite.setTexture(mHoverTexture);
     else
-        rect.setFillColor(mFillColor);
+        sprite.setTexture(mNormalTexture);
 
     sf::Text txt;
     txt.setFont(font);
@@ -36,10 +39,10 @@ void PushButton::draw(sf::RenderWindow &window) {
     sf::Vector2f pos = mPosition;
     sf::Vector2f textPos = pos + sf::Vector2f(mSize / 2.f);
 
-    txt.setOrigin(text.length() / 2 * mFontSize * 0.8, mFontSize * 0.5);
+    txt.setOrigin(text.length() / 2 * mFontSize * 0.8, mFontSize * 0.8);
     txt.setPosition(textPos);
 
-    window.draw(rect);
+    window.draw(sprite);
     window.draw(txt);
 }
 
