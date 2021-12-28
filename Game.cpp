@@ -176,7 +176,7 @@ void Game::render() {
         break;
 
     case SCOREBOARD:
-        texture.loadFromFile("./resource/background.png");
+        texture.loadFromFile("./resource/scoreboard-background.png");
         sprite.setTexture(texture);
         mWindow.draw(sprite);
         scoreBoard.draw(mWindow);
