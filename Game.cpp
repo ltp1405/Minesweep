@@ -1,5 +1,4 @@
 #include "Game.hpp"
-#include "GameMenu.hpp"
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -159,7 +158,7 @@ void Game::render() {
         texture.loadFromFile("./resource/background.png");
         sprite.setTexture(texture);
         mWindow.draw(sprite);
-        //drawGameTitle(mWindow);
+        // drawGameTitle(mWindow);
         menu.draw(mWindow);
         break;
 
