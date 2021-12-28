@@ -11,11 +11,16 @@ public:
 		bufferFlag.loadFromFile("./resource/sound/flag.wav");
 		Flag.setBuffer(bufferFlag);
 
-		Win.openFromFile("./resource/sound/win.wav");
+		bufferWin.loadFromFile("./resource/sound/win.wav");
+		Win.setBuffer(bufferWin);
+
+		bufferLose.loadFromFile("./resource/sound/lose.wav");
+		Lose.setBuffer(bufferLose);
 	}
 	void playClick();
 	void playFlag();
-	void winning();
+	void playWin();
+	void playLose();
 
 private:
 	sf::SoundBuffer bufferClick;
@@ -24,6 +29,9 @@ private:
 	sf::SoundBuffer bufferFlag;
 	sf::Sound Flag;
 
-	sf::Music Win;
-	sf::Music Lose;
+	sf::SoundBuffer bufferWin;
+	sf::Sound Win;
+
+	sf::SoundBuffer bufferLose;
+	sf::Sound Lose;
 };

@@ -10,6 +10,10 @@ void Sound::playFlag() {
 	Flag.play();
 }
 
-void Sound::winning() {
+void Sound::playWin() {
 	Win.play();
+}
+
+void Sound::playLose() {
+	Lose.play();
 }

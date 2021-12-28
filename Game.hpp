@@ -6,6 +6,7 @@
 #include "Button.hpp"
 #include "GameMenu.hpp"
 #include "Scoreboard.hpp"
+#include "Sound.hpp"
 
 
 class Game {
@@ -33,6 +34,7 @@ private:
     Menu menu;
     sf::Sprite sprite;
     sf::Texture texture;
+    Sound sound;
 
     void handleEvent();
     void update();

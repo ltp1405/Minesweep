@@ -40,7 +40,7 @@ void Scoreboard::drawColumn(sf::RenderWindow &window, const string titleString,
     while (i < scores.count && i < maxDisplayEntries) {
         char s[20];
         float n = scores.get(i);
-        sprintf(s, "%04.2fs", n);
+        sprintf_s(s, "%04.2fs", n);
         text.setString(s);
         text.move(0.f, lineSpacing);
         window.draw(text);

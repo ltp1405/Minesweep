@@ -209,12 +209,14 @@ void Board::choose(int x, int y) {
     if (cell->type == BOMB) {
         cell->state = REVEALED;
         this->state = LOSE;
+        sound.playLose();
         openAll();
         return;
     }
 
     if (checkForWin() == true) {
         this->state = WIN;
+        sound.playLose();
     }
 }
 

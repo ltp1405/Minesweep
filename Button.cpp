@@ -10,7 +10,7 @@ bool InBound(sf::Vector2f pos, sf::Vector2f from, sf::Vector2f to) {
 }
 
 PushButton::PushButton(bool menu) {
-    mFontSize = 24;
+    mFontSize = 30;
     font.loadFromFile("./resource/FFFFORWA.TTF");
     text = "";
 
@@ -19,11 +19,11 @@ PushButton::PushButton(bool menu) {
     mSize = sf::Vector2f(mNormalTexture.getSize());
     mHoverColor = sf::Color::Green;
     mFillColor = sf::Color::Yellow;
-    mTextColor = sf::Color::Black;
+    mTextColor = sf::Color::White;
 }
 
 void PushButton::draw(sf::RenderWindow &window) {
-    mSize = sf::Vector2f(mNormalTexture.getSize() - sf::Vector2u(0, 30));
+    mSize = sf::Vector2f(mNormalTexture.getSize() - sf::Vector2u(0, 15));
     sf::Sprite sprite;
     sprite.move(mPosition);
     if (hovered)

@@ -70,7 +70,7 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     snprintf(timeString, 20, "%02d:%02d", mins, snds);
     text.setString(timeString);
     text.setCharacterSize(24);
-    text.setFillColor(sf::Color(0, 0, 0));
+    text.setFillColor(sf::Color::White);
     text.setPosition(210.f, 160.f);
     clockSprite.setPosition(60.f, 100.f);
     boxSprite.setPosition(160.f, 140.f);
@@ -81,7 +81,7 @@ void drawGameStatus(sf::RenderWindow &window, int bombCount, int flagCount,
     snprintf(flagString, 20, "%d", flagCount);
     flagText.setString(flagString);
     flagText.setCharacterSize(24);
-    flagText.setFillColor(sf::Color(0, 0, 0));
+    flagText.setFillColor(sf::Color::White);
     flagText.setPosition(230.f, 260.f);
     bombCountSprite.setPosition(60.f, 200.f);
     boxSprite.setPosition(160.f, 240.f);

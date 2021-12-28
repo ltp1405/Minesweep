@@ -104,8 +104,9 @@ void Game::handleEvent() {
 }
 
 void Game::update() {
-    if (board.state == LOSE)
+    if (board.state == LOSE) {
         currentScene = GAMEOVER;
+    }
     else if (board.state == WIN) {
         scoreBoard.save(currentTime.asSeconds(), currentDifficulty);
         currentScene = GAMEWIN;
